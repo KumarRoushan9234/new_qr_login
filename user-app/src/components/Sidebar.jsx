@@ -13,12 +13,19 @@ import {
 } from "react-icons/fi";
 import { HiOutlineChatAlt2 } from "react-icons/hi";
 import {
+  MdOutlineViewCompactAlt,
+  MdOutlineQrCodeScanner,
+} from "react-icons/md";
+import { BsListTask } from "react-icons/bs";
+
+import {
   BsLayoutSidebarInsetReverse,
   BsLayoutSidebarInset,
 } from "react-icons/bs";
+import { IoSettings } from "react-icons/io5";
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div
@@ -48,10 +55,23 @@ const Sidebar = () => {
 
         <SidebarItem
           isOpen={isOpen}
-          icon={<FiHome />}
-          text="Dashboard"
+          icon={<MdOutlineViewCompactAlt />}
+          text="Companies"
           link="/"
         />
+        <SidebarItem
+          isOpen={isOpen}
+          icon={<MdOutlineQrCodeScanner />}
+          text="Scanner"
+          link="/scanner"
+        />
+        <SidebarItem
+          isOpen={isOpen}
+          icon={<IoSettings />}
+          text="Settings"
+          link="/"
+        />
+
         {/* <SidebarItem
           isOpen={isOpen}
           icon={<FiBox />}
@@ -65,12 +85,26 @@ const Sidebar = () => {
           link="/messages"
           // badge="2"
         />
+
         {/* <SidebarItem
           isOpen={isOpen}
           icon={<FiShoppingCart />}
           text="Order"
           link="/orders"
         /> */}
+
+        <SidebarItem
+          isOpen={isOpen}
+          icon={<FiBarChart2 />}
+          text="Static"
+          link="/static"
+        />
+        <SidebarItem
+          isOpen={isOpen}
+          icon={<BsListTask />}
+          text="Task | Kanban"
+          link="/static"
+        />
         <SidebarItem
           isOpen={isOpen}
           icon={<FiCalendar />}
@@ -83,19 +117,6 @@ const Sidebar = () => {
           text="Activity"
           link="/activity"
         />
-        <SidebarItem
-          isOpen={isOpen}
-          icon={<FiBarChart2 />}
-          text="Static"
-          link="/static"
-        />
-        <SidebarItem
-          isOpen={isOpen}
-          icon={<FiBarChart2 />}
-          text="Task | Kanban"
-          link="/static"
-        />
-
         <div className="border-t border-gray-700 my-3"></div>
 
         {/* <SectionTitle isOpen={isOpen} title="Account" /> */}
@@ -121,10 +142,10 @@ const Sidebar = () => {
       </nav>
 
       {/* Theme Toggle */}
-      <div className="mt-auto border-t border-gray-700 pt-4 flex items-center justify-between">
+      {/* <div className="mt-auto border-t border-gray-700 pt-4 flex items-center justify-between">
         {isOpen && <span className="text-gray-400 text-sm">Dark Mode</span>}
         <input type="checkbox" className="toggle toggle-sm" />
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { FaRegUserCircle } from "react-icons/fa";
-
-import { FiSearch, FiUser, FiLogOut } from "react-icons/fi";
+import { FaRegUserCircle, FaSearch } from "react-icons/fa";
+import { IoLogOut } from "react-icons/io5";
+import { FiLogIn } from "react-icons/fi";
 import useAuthStore from "../store/authStore";
 
 const Navbar = () => {
@@ -9,23 +9,40 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
 
   return (
-    <nav className="flex items-center justify-between p-4 bg-gray-200 dark:bg-gray-800">
-      <h3>User-APP</h3>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="p-2 border rounded w-1/3 dark:bg-gray-700"
-      />
+    <nav className="flex items-center justify-between p-4 bg-gray-900 text-white shadow-md">
+      {/* Left - App Title with Gradient & 3D Effect */}
+      <h3 className="text-lg font-semibold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text drop-shadow-lg">
+        User-App
+      </h3>
+
+      {/* Middle - Search Bar with Icon */}
+      <div className="flex-1 mx-10 max-w-lg relative">
+        <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+        <input
+          type="text"
+          placeholder="Search..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Right - User Icon & Authentication Buttons */}
       <div className="flex items-center gap-4">
-        <FiUser className="text-xl cursor-pointer" />
         {user ? (
-          <FiLogOut
-            onClick={logout}
-            className="text-xl cursor-pointer text-red-500"
-          />
-        ) : null}
+          <>
+            <FaRegUserCircle className="text-2xl cursor-pointer" />
+            <IoLogOut
+              onClick={logout}
+              className="text-2xl cursor-pointer text-red-500 hover:text-red-400"
+            />
+          </>
+        ) : (
+          <button className="flex items-center gap-2 px-2 py-2 bg-blue-700 hover:bg-blue-400 rounded-md text-white">
+            <FiLogIn className="text-lg" />
+            Login
+          </button>
+        )}
       </div>
     </nav>
   );

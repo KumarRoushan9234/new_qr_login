@@ -1,15 +1,33 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
+import morgan from "morgan";
 import connectDB from "./config/db.js";
 
+// Import Routes
+import authRoutes from "./routes/authRoutes.js";
+import checkInRoutes from "./routes/checkInRoutes.js";
+import partnerRoutes from "./routes/partnerRoutes.js";
+
 dotenv.config();
+
+// Connect to MongoDB
 connectDB();
 
 const app = express();
+
+// Middleware
+app.use(cors());
 app.use(express.json());
+app.use(morgan("dev"));
 
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/qr", require("./routes/qrRoutes"));
-app.use("/api/checkin", require("./routes/checkInRoutes"));
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/checkin", checkInRoutes);
+app.use("/api/partners", partnerRoutes);
 
-app.listen(process.env.PORT, () => console.log(`✅ Server running on port ${process.env.PORT}`));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
