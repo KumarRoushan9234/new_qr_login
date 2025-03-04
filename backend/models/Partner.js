@@ -5,7 +5,6 @@ const PartnerSchema = new mongoose.Schema(
     companyName: { 
       type: String, 
       required: true, 
-      // trim: true 
     },
     email: { 
       type: String, 
@@ -18,11 +17,13 @@ const PartnerSchema = new mongoose.Schema(
       required: true, 
       unique: true 
     },
-
+    password: { 
+      type: String, 
+      required: true 
+    },
     qrCode: { 
       type: String 
-    }, // QR Code Image URL/Base64
-
+    },
     pendingCheckIns: [
       {
         userId: { 
@@ -51,3 +52,25 @@ const PartnerSchema = new mongoose.Schema(
 );
 
 export default mongoose.model("Partner", PartnerSchema);
+
+
+
+// const removeFirebaseIndex = async () => {
+//   await mongoose.connect(process.env.MONGO_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   });
+
+//   console.log("MongoDB Connected");
+
+//   try {
+//     await Partner.collection.dropIndex("firebaseUid_1");
+//     console.log("Dropped firebaseUid index");
+//   } catch (err) {
+//     console.log("Index does not exist or already removed.");
+//   }
+
+//   mongoose.disconnect();
+// };
+
+// removeFirebaseIndex();
