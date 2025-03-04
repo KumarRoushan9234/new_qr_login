@@ -33,7 +33,7 @@ const FloatingHelp = () => {
         animate={{ opacity: 1, scale: 1 }}
         whileHover={{ scale: 1.1 }}
       >
-        <SlQuestion size={24} />
+        <SlQuestion size={10} />
       </motion.button>
 
       {/* Modal */}
@@ -47,13 +47,13 @@ const FloatingHelp = () => {
           >
             <motion.div
               ref={modalRef}
-              className="bg-[#111] p-6 rounded-lg shadow-lg max-w-sm text-center text-white"
+              className="bg-[#111] p-3 rounded-lg shadow-lg max-w-sm text-center text-white"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
             >
               <h2 className="text-xl font-bold">Need Help?</h2>
-              <p className="mt-2 text-gray-300">
+              <p className="mt-1 text-gray-300">
                 This is a QR-based check-in system. Scan, submit, and get
                 approved!
               </p>
