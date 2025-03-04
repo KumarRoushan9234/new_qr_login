@@ -47,14 +47,15 @@ const FloatingHelp = () => {
           >
             <h2 className="text-base font-bold">Need Help?</h2>
             <p className="text-gray-300 text-xs mt-1">
-              Scan, submit, and get approved!
+              Scan, submit, and get approved! | Scan, submit, and get approved!
+              | Scan, submit, and get approved! |
             </p>
-            <button
+            {/* <button
               onClick={() => setIsOpen(false)}
               className="mt-2 bg-blue-600 text-white px-2 py-1 rounded-md text-xs hover:bg-blue-700 transition"
             >
               Close
-            </button>
+            </button> */}
           </motion.div>
         )}
       </AnimatePresence>
