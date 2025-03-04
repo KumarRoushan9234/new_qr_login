@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { SlQuestion } from "react-icons/sl";
 import { motion, AnimatePresence } from "framer-motion";
 
 const FloatingHelp = () => {
@@ -25,45 +24,37 @@ const FloatingHelp = () => {
 
   return (
     <>
-      {/* Floating Button */}
+      {/* Smaller Floating Button */}
       <motion.button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 bg-[#111] text-white p-3 rounded-full shadow-lg hover:brightness-125 transition"
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-4 right-4 bg-[#111] text-white w-10 h-10 rounded-full shadow-lg hover:brightness-125 transition flex items-center justify-center text-lg font-bold"
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         whileHover={{ scale: 1.1 }}
       >
-        <SlQuestion size={10} />
+        ?
       </motion.button>
 
-      {/* Modal */}
+      {/* Smaller Floating Modal */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            className="fixed bottom-14 right-4 bg-[#111] p-3 rounded-md shadow-lg text-white w-52"
+            ref={modalRef}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
           >
-            <motion.div
-              ref={modalRef}
-              className="bg-[#111] p-3 rounded-lg shadow-lg max-w-sm text-center text-white"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 50, opacity: 0 }}
+            <h2 className="text-base font-bold">Need Help?</h2>
+            <p className="text-gray-300 text-xs mt-1">
+              Scan, submit, and get approved!
+            </p>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="mt-2 bg-blue-600 text-white px-2 py-1 rounded-md text-xs hover:bg-blue-700 transition"
             >
-              <h2 className="text-xl font-bold">Need Help?</h2>
-              <p className="mt-1 text-gray-300">
-                This is a QR-based check-in system. Scan, submit, and get
-                approved!
-              </p>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-              >
-                Close
-              </button>
-            </motion.div>
+              Close
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
