@@ -18,6 +18,25 @@ const AboutMe = () => {
         CSE (3rd Year), I specialize in building scalable and intelligent
         applications.
       </p>
+
+      <div className="mt-6 flex justify-center gap-4">
+        <a
+          href="https://github.com/yourgithub"
+          className="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://linkedin.com/in/yourlinkedin"
+          className="bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded-lg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
+      </div>
     </div>
   );
 };
