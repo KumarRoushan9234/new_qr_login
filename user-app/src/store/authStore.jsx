@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { loginUser, registerUser, googleLogin } from "../api";
+import { loginUser, registerUser, googleLogin } from "../api/api";
 import { jwtDecode } from "jwt-decode";
 
 const useAuthStore = create(

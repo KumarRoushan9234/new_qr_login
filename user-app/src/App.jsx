@@ -7,6 +7,7 @@ import Signup from "./pages/Auth/Signup";
 import ScanQR from "./pages/ScanQR";
 import LandingPage from "./pages/Landing/LandingPage";
 import Companies from "./pages/Companies";
+import FloatingHelp from "./components/FloatingHelp";
 import "./index.css";
 
 const ProtectedRoute = ({ children }) => {
@@ -21,6 +22,7 @@ const App = () => {
     <BrowserRouter>
       {isAuthenticated && <Navbar />}
       {isAuthenticated && <Sidebar />}
+
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -37,6 +39,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <ScanQR />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          // path="/scan"
+          element={
+            <ProtectedRoute>
+              <FloatingHelp />
             </ProtectedRoute>
           }
         />
