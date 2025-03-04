@@ -11,7 +11,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="flex items-center justify-between p-4 bg-gray-900 text-white shadow-md">
+    <nav className="sticky top-0 z-50 flex items-center justify-between p-4 bg-gray-900 text-white shadow-md">
       {/* Left - App Title */}
       <h3 className="text-lg font-semibold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text drop-shadow-lg">
         Partner-App

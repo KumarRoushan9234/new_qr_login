@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar";
 import Login from "./pages/Auth/Login";
 import ScanQR from "./pages/ScanQR";
 import LandingPage from "./pages/Landing/LandingPage";
+import FloatingHelp from "./components/FloatingHelp";
 import Request from "./pages/Request";
 import "./index.css";
 
@@ -19,26 +20,37 @@ const App = () => {
   return (
     <BrowserRouter>
       {isAuthenticated && <Navbar />}
-      {isAuthenticated && <Sidebar />}
-      <Routes>
-        <Route path="/login" element={<Login />} />
 
-        {/* Landing Page when not logged in */}
-        <Route
-          path="/"
-          element={isAuthenticated ? <Request /> : <LandingPage />}
-        />
+      {/* Main Layout */}
+      <div className="flex">
+        {isAuthenticated && <Sidebar />}
 
-        {/* Protected Routes */}
-        <Route
-          path="/scan"
-          element={
-            <ProtectedRoute>
-              <ScanQR />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+        {/* Main Content */}
+        <div className="flex-1 p-6 relative">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+
+            {/* Landing Page when not logged in */}
+            <Route
+              path="/"
+              element={isAuthenticated ? <Request /> : <LandingPage />}
+            />
+
+            {/* Protected Routes */}
+            <Route
+              path="/scan"
+              element={
+                <ProtectedRoute>
+                  <ScanQR />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+
+          {/* ✅ Floating Help: Visible ONLY when authenticated */}
+          {isAuthenticated && <FloatingHelp />}
+        </div>
+      </div>
     </BrowserRouter>
   );
 };

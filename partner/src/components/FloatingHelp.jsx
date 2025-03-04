@@ -28,7 +28,7 @@ const FloatingHelp = () => {
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition"
+        className="fixed bottom-6 right-6 bg-[#111] text-white p-3 rounded-full shadow-lg hover:brightness-125 transition"
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         whileHover={{ scale: 1.1 }}
@@ -47,13 +47,13 @@ const FloatingHelp = () => {
           >
             <motion.div
               ref={modalRef}
-              className="bg-white p-6 rounded-lg shadow-lg max-w-sm text-center"
+              className="bg-[#111] p-6 rounded-lg shadow-lg max-w-sm text-center text-white"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
             >
-              <h2 className="text-xl font-bold text-gray-800">Need Help?</h2>
-              <p className="text-gray-600 mt-2">
+              <h2 className="text-xl font-bold">Need Help?</h2>
+              <p className="mt-2 text-gray-300">
                 This is a QR-based check-in system. Scan, submit, and get
                 approved!
               </p>
