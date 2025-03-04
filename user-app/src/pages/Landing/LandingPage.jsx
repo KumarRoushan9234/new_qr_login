@@ -32,19 +32,19 @@ const LandingPage = () => {
 
         <div className="mt-6 flex gap-6">
           <motion.a
-            href="/signup"
+            href="/login"
             whileHover={{ scale: 1.1 }}
             className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition"
           >
             Get Started
           </motion.a>
-          <motion.a
+          {/* <motion.a
             href="/login"
             whileHover={{ scale: 1.1 }}
             className="border border-blue-500 text-blue-400 px-8 py-3 rounded-lg hover:bg-blue-500 hover:text-white transition"
           >
             Login
-          </motion.a>
+          </motion.a> */}
         </div>
       </div>
 
