@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import usePartnerStore from "../store/usePartnerStore";
 import API from "../api/api";
 
 const GenerateQR = () => {
   const { token } = usePartnerStore();
-  const [qrCode, setQrCode] = useState(null);
+  const [previousQrCode, setPreviousQrCode] = useState(null);
+  const [newQrCode, setNewQrCode] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    // Load the previous QR code from local storage if available
+    const savedQrCode = localStorage.getItem("partner-qr-code");
+    if (savedQrCode) {
+      setPreviousQrCode(savedQrCode);
+    }
+  }, []);
 
   const handleGenerateQR = async () => {
     setLoading(true);
@@ -18,7 +27,10 @@ const GenerateQR = () => {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setQrCode(response.data.qrCode);
+
+      setNewQrCode(response.data.qrCode);
+      localStorage.setItem("partner-qr-code", response.data.qrCode); // Save the latest QR code
+      setPreviousQrCode(response.data.qrCode); // Update the displayed previous QR
     } catch (err) {
       setError("Failed to generate QR Code. Try again.");
       console.error(err);
@@ -27,10 +39,10 @@ const GenerateQR = () => {
     setLoading(false);
   };
 
-  const downloadQRCode = () => {
+  const downloadQRCode = (qrCode, name) => {
     const link = document.createElement("a");
     link.href = qrCode;
-    link.download = "Partner_QR_Code.png";
+    link.download = name;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -38,32 +50,59 @@ const GenerateQR = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 text-center">
-      <h2 className="text-2xl font-semibold mb-4">Generate Partner QR Code</h2>
+      <h2 className="text-2xl font-semibold mb-4">Partner QR Code</h2>
 
       {error && <p className="text-red-500">{error}</p>}
 
-      {qrCode ? (
-        <div>
+      {/* Show Previous QR Code at the top */}
+      {previousQrCode ? (
+        <div className="mb-6">
+          <h3 className="text-lg font-medium">Previous QR Code</h3>
           <img
-            src={qrCode}
-            alt="Partner QR Code"
-            className="w-48 h-48 mx-auto mb-4"
+            src={previousQrCode}
+            alt="Previous Partner QR Code"
+            className="w-48 h-48 mx-auto mb-2"
           />
           <button
-            onClick={downloadQRCode}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            onClick={() =>
+              downloadQRCode(previousQrCode, "Previous_QR_Code.png")
+            }
+            className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
           >
             Download QR Code
           </button>
         </div>
       ) : (
-        <button
-          onClick={handleGenerateQR}
-          disabled={loading}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          {loading ? "Generating..." : "Generate QR Code"}
-        </button>
+        <p className="text-gray-500 mb-6">
+          No QR code available. Generate a new one below.
+        </p>
+      )}
+
+      {/* Button to Generate a New QR Code */}
+      <button
+        onClick={handleGenerateQR}
+        disabled={loading}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
+        {loading ? "Generating..." : "Generate New QR Code"}
+      </button>
+
+      {/* Show New QR Code if Generated */}
+      {newQrCode && (
+        <div className="mt-6">
+          <h3 className="text-lg font-medium">New QR Code</h3>
+          <img
+            src={newQrCode}
+            alt="New Partner QR Code"
+            className="w-48 h-48 mx-auto mb-2"
+          />
+          <button
+            onClick={() => downloadQRCode(newQrCode, "New_QR_Code.png")}
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          >
+            Download New QR Code
+          </button>
+        </div>
       )}
     </div>
   );

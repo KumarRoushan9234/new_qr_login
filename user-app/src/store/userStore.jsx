@@ -21,7 +21,7 @@ const useUserStore = create(
 
       fetchAllPartners: async () => {
         try {
-          if (get().partners.length > 0) return; // Avoids redundant API calls
+          // if (get().partners.length > 0) return; // Avoids redundant API calls
 
           const { data } = await API.get("/users/partners");
           set({ partners: data.partners });

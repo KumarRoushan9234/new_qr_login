@@ -5,7 +5,9 @@ const Companies = () => {
   const { partners, fetchAllPartners } = useUserStore();
 
   useEffect(() => {
+    console.log(partners);
     fetchAllPartners();
+    console.log(partners);
   }, []);
 
   return (
