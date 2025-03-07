@@ -47,8 +47,8 @@ const FloatingHelp = () => {
           >
             <h2 className="text-base font-bold">Need Help?</h2>
             <p className="text-gray-300 text-xs mt-1">
-              Scan, submit, and get approved! | Scan, submit, and get approved!
-              | Scan, submit, and get approved! |
+              Scan, submit, and get approved! | | Scan, submit, and get
+              approved! |
             </p>
             {/* <button
               onClick={() => setIsOpen(false)}
