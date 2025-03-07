@@ -2,11 +2,12 @@ import { useState } from "react";
 import { FaRegUserCircle, FaSearch } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 import { FiLogIn } from "react-icons/fi";
-import usePartnerStore from "../store/usePartnerStore";
+import usePartnerStore from "../store/PartnerStore";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { partner, logout } = usePartnerStore();
+  console.log(partner);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
@@ -33,6 +34,7 @@ const Navbar = () => {
       <div className="flex items-center gap-4">
         {partner ? (
           <>
+            <p>{partner.companyName}</p>
             <FaRegUserCircle className="text-2xl cursor-pointer" />
             <IoLogOut
               onClick={logout}

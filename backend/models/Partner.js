@@ -24,6 +24,38 @@ const PartnerSchema = new mongoose.Schema(
     qrCode: { 
       type: String 
     },
+
+    companyMotto: { 
+      type: String, 
+      trim: true 
+    },
+    companyDetails: { 
+      type: String, 
+      trim: true 
+    },
+    industryType: { 
+      type: String, 
+      enum: ["Tech", "Finance", "Healthcare", "Retail", "Education", "Other"], 
+      default: "Other" 
+    },
+    website: { 
+      type: String, 
+      trim: true 
+    },
+    logo: { 
+      type: String, 
+      default: "" // Store URL or file path
+    },
+
+    // Address Object
+    address: {
+      street: { type: String, trim: true },
+      city: { type: String, required: true, trim: true },
+      state: { type: String, required: true, trim: true },
+      country: { type: String, required: true, trim: true },
+      zipCode: { type: String, required: true, trim: true }
+    },
+    
     pendingCheckIns: [
       {
         userId: { 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import usePartnerStore from "../store/usePartnerStore";
+import usePartnerStore from "../store/PartnerStore";
 import API from "../api/api";
 
 const GenerateQR = () => {

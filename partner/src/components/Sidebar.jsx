@@ -7,11 +7,11 @@ import {
   BsLayoutSidebarInset,
 } from "react-icons/bs";
 import { IoSettings } from "react-icons/io5";
-import usePartnerStore from "../store/usePartnerStore";
+import usePartnerStore from "../store/PartnerStore";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { logout } = usePartnerStore();
+  const { partner, logout } = usePartnerStore();
 
   return (
     <div
@@ -47,7 +47,7 @@ const Sidebar = () => {
           isOpen={isOpen}
           icon={<FiUsers />}
           text="Check-In Requests"
-          link="/check-ins"
+          link="/request"
         />
         <SidebarItem
           isOpen={isOpen}

@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import usePartnerAuthStore from "./store/usePartnerStore";
+import usePartnerAuthStore from "./store/PartnerStore";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Login from "./pages/Auth/Login";
 import ScanQR from "./pages/ScanQR";
 import LandingPage from "./pages/Landing/LandingPage";
 import FloatingHelp from "./components/FloatingHelp";
+import MyCompany from "./pages/MyCompany";
 import Request from "./pages/Request";
 import GenerateQR from "./pages/GenerateQR";
 import "./index.css";
@@ -34,7 +35,7 @@ const App = () => {
             {/* Landing Page when not logged in */}
             <Route
               path="/"
-              element={isAuthenticated ? <Request /> : <LandingPage />}
+              element={isAuthenticated ? <MyCompany /> : <LandingPage />}
             />
 
             {/* Protected Routes */}
@@ -51,6 +52,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <GenerateQR />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/request"
+              element={
+                <ProtectedRoute>
+                  <Request />
                 </ProtectedRoute>
               }
             />

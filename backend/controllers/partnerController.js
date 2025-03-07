@@ -74,6 +74,43 @@ export const loginPartner = async (req, res) => {
   }
 };
 
+export const updatePartnerProfile = async (req, res) => {
+  try {
+    const partner = await Partner.findById(req.user.id);
+    if (!partner) return res.status(404).json({ message: "Partner not found" });
+
+    // Extract fields from request body
+    const {
+      companyMotto,
+      companyDetails,
+      industryType,
+      website,
+      logo,
+      address,
+    } = req.body;
+
+    // Update the fields if provided
+    if (companyMotto) partner.companyMotto = companyMotto;
+    if (companyDetails) partner.companyDetails = companyDetails;
+    if (industryType) partner.industryType = industryType;
+    if (website) partner.website = website;
+    if (logo) partner.logo = logo;
+    if (address) {
+      partner.address = {
+        ...partner.address,
+        ...address, // Merge new address fields with existing
+      };
+    }
+
+    await partner.save();
+    res.json({ message: "Partner profile updated successfully", partner });
+
+  } catch (error) {
+    console.error("Error updating partner profile:", error);
+    res.status(500).json({ message: "Error updating profile", error });
+  }
+};
+
 // Get Partner Profile
 export const getPartnerProfile = async (req, res) => {
   try {

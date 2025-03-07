@@ -1,5 +1,5 @@
 import { useState } from "react";
-import usePartnerStore from "../../store/usePartnerStore";
+import usePartnerStore from "../../store/PartnerStore";
 import { useNavigate } from "react-router-dom";
 
 const PartnerLogin = () => {

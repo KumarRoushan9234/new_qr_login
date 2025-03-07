@@ -1,5 +1,5 @@
 import express from "express";
-import { registerPartner, loginPartner, getPartnerProfile, generateQRCode, updateCheckInStatus } from "../controllers/partnerController.js";
+import { registerPartner, loginPartner, getPartnerProfile, generateQRCode, updateCheckInStatus,updatePartnerProfile } from "../controllers/partnerController.js";
 import protect from "../middleware/authMiddleware.js"; 
 
 const router = express.Router();
@@ -12,6 +12,9 @@ router.post("/login", loginPartner);
 
 // Get Partner Profile (Protected Route)
 router.get("/profile", protect, getPartnerProfile);
+
+// Update Partner Profile with Additional Fields
+router.put("/profile", protect, updatePartnerProfile);
 
 // Generate QR Code for Partner
 router.post("/generate-qr", protect, generateQRCode);
