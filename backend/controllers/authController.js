@@ -64,7 +64,6 @@ export const login = async (req, res) => {
   }
 };
 
-// Update User Profile (excluding password)
 export const updateUserProfile = async (req, res) => {
   try {
     const { name, email, phone } = req.body;
@@ -75,7 +74,7 @@ export const updateUserProfile = async (req, res) => {
       req.user.id,
       { name, email, phone },
       { new: true, runValidators: true }
-    ).select("-password"); // Exclude password from response
+    ).select("-password"); 
 
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
@@ -90,7 +89,6 @@ export const updateUserProfile = async (req, res) => {
   }
 };
 
-// Change Password
 export const changePassword = async (req, res) => {
   try {
     const { oldPassword, newPassword } = req.body;

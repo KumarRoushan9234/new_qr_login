@@ -3,28 +3,23 @@ import jwt from "jsonwebtoken";
 import Partner from "../models/Partner.js";
 import QRCode from "qrcode";
 
-// Partner Registration
 export const registerPartner = async (req, res) => {
   try {
-    // Extract partner data from request body
     const { companyName, email, phone, password} = req.body;
 
     if (!companyName || !email || !phone || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Check if partner already exists
     const existingPartner = await Partner.findOne({ email });
     if (existingPartner) {
       console.log("Partner already exists");
       return res.status(400).json({ message: "Partner already exists" });
     }
-
-    // Hash password
+    
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create new partner instance
     const partnerData = {
       companyName,
       email,
@@ -79,7 +74,6 @@ export const updatePartnerProfile = async (req, res) => {
     const partner = await Partner.findById(req.user.id);
     if (!partner) return res.status(404).json({ message: "Partner not found" });
 
-    // Extract fields from request body
     const {
       companyMotto,
       companyDetails,
@@ -89,7 +83,6 @@ export const updatePartnerProfile = async (req, res) => {
       address,
     } = req.body;
 
-    // Update the fields if provided
     if (companyMotto) partner.companyMotto = companyMotto;
     if (companyDetails) partner.companyDetails = companyDetails;
     if (industryType) partner.industryType = industryType;
@@ -98,7 +91,7 @@ export const updatePartnerProfile = async (req, res) => {
     if (address) {
       partner.address = {
         ...partner.address,
-        ...address, // Merge new address fields with existing
+        ...address, 
       };
     }
 
@@ -111,7 +104,6 @@ export const updatePartnerProfile = async (req, res) => {
   }
 };
 
-// Get Partner Profile
 export const getPartnerProfile = async (req, res) => {
   try {
     const partner = await Partner.findById(req.user.id).select("-password");
@@ -124,11 +116,9 @@ export const getPartnerProfile = async (req, res) => {
   }
 };
 
-// Generate QR Code for Partner
 export const generateQRCode = async (req, res) => {
   try {
-    const partnerId = req.user.id; // Get authenticated partner ID
-
+    const partnerId = req.user.id; 
     const partner = await Partner.findById(partnerId);
     if (!partner) {
       return res.status(404).json({ message: "Partner not found" });
@@ -141,10 +131,8 @@ export const generateQRCode = async (req, res) => {
       partnerId: partner._id,
     };
 
-    // Generate QR Code
     const qrCode = await QRCode.toDataURL(JSON.stringify(qrData));
 
-    // Update the partner's record with the new QR code
     partner.qrCode = qrCode;
     await partner.save();
 
@@ -169,12 +157,11 @@ export const getCheckInRequests = async (req, res) => {
   }
 };
 
-// Approve/Reject a check-in request
 export const updateCheckInStatus = async (req, res) => {
   try {
     const { requestId } = req.params;
-    const { status } = req.body; // "Approved" or "Rejected"
-
+    const { status } = req.body; 
+    
     if (!["Approved", "Rejected"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value" });
     }

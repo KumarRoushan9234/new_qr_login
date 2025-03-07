@@ -3,7 +3,7 @@ import Partner from "../models/Partner.js";
 
 export const generateQRCode = async (req, res) => {
   try {
-    const partnerId = req.user.id; // Get authenticated partner ID
+    const partnerId = req.user.id; 
 
     const partner = await Partner.findById(partnerId);
     if (!partner) {
@@ -17,10 +17,8 @@ export const generateQRCode = async (req, res) => {
       partnerId: partner._id,
     };
 
-    // Generate QR Code as Data URL
     const qrCode = await QRCode.toDataURL(JSON.stringify(qrData));
 
-    // Save QR Code in the database
     partner.qrCode = qrCode;
     await partner.save();
 
@@ -31,17 +29,4 @@ export const generateQRCode = async (req, res) => {
   }
 };
 
-// export const generateQRCode = async (req, res) => {
-//   try {
-//     const { companyName, email, phone } = req.body;
-//     const qrData = { companyName, email, phone };
-//     const qrCode = await QRCode.toDataURL(JSON.stringify(qrData));
 
-//     const partner = new Partner({ companyName, email, phone, qrCode });
-//     await partner.save();
-
-//     res.json({ qrCode });
-//   } catch (error) {
-//     res.status(500).json({ message: "Error generating QR code", error });
-//   }
-// };

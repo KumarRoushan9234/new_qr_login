@@ -4,7 +4,7 @@ import cors from "cors";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
 
-// Import Routes
+
 import authRoutes from "./routes/authRoutes.js";
 import checkInRoutes from "./routes/checkInRoutes.js";
 import partnerRoutes from "./routes/partnerRoutes.js";

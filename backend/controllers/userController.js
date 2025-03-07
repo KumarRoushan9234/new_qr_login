@@ -1,10 +1,10 @@
 import User from "../models/User.js";
 import Partner from "../models/Partner.js";
 
-// Get all partners with details
 export const getAllPartners = async (req, res) => {
   try {
-    const partners = await Partner.find().select("-password"); // Exclude password for security
+    const partners = await Partner.find().select("-password"); 
+    
     res.status(200).json({ partners });
   } catch (error) {
     console.error("Error fetching partners:", error);
@@ -12,10 +12,9 @@ export const getAllPartners = async (req, res) => {
   }
 };
 
-// Get user profile (optional)
 export const getUserProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password"); // Exclude password
+    const user = await User.findById(req.user.id).select("-password"); 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
