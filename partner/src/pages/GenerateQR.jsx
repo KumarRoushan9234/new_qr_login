@@ -29,8 +29,8 @@ const GenerateQR = () => {
       );
 
       setNewQrCode(response.data.qrCode);
-      localStorage.setItem("partner-qr-code", response.data.qrCode); // Save the latest QR code
-      setPreviousQrCode(response.data.qrCode); // Update the displayed previous QR
+      localStorage.setItem("partner-qr-code", response.data.qrCode);
+      setPreviousQrCode(response.data.qrCode);
     } catch (err) {
       setError("Failed to generate QR Code. Try again.");
       console.error(err);
@@ -84,7 +84,7 @@ const GenerateQR = () => {
       >
         {loading ? "Generating..." : "Generate New QR Code"}
       </button>
-      
+
       {newQrCode && (
         <div className="mt-6">
           <h3 className="text-lg font-medium">New QR Code</h3>

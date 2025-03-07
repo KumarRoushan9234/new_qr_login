@@ -31,12 +31,10 @@ const features = [
 const SlidingFeatures = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Auto-slide effect
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % features.length);
-    }, 3000); // Auto-scroll every 3 seconds
-
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 

@@ -21,7 +21,7 @@ const AboutMe = () => {
 
       <div className="mt-6 flex justify-center gap-4">
         <a
-          href="https://github.com/yourgithub"
+          href="https://github.com/KumarRoushan9234"
           className="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg"
           target="_blank"
           rel="noopener noreferrer"
@@ -29,7 +29,7 @@ const AboutMe = () => {
           GitHub
         </a>
         <a
-          href="https://linkedin.com/in/yourlinkedin"
+          href="https://www.linkedin.com/in/kumar-roushan-9870b425b/"
           className="bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded-lg"
           target="_blank"
           rel="noopener noreferrer"
