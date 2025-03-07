@@ -25,12 +25,10 @@ const App = () => {
     <BrowserRouter>
       {isAuthenticated && <Navbar />}
 
-      {/* Main Wrapper: Ensures full height & no gaps */}
       <div className="flex flex-col min-h-screen bg-gray-900 text-white">
         <div className="flex flex-1">
           {isAuthenticated && <Sidebar />}
 
-          {/* Main Content Wrapper */}
           <div className="flex-1  overflow-auto bg-black">
             <Routes>
               <Route path="/login" element={<Login />} />
@@ -75,9 +73,6 @@ const App = () => {
             </Routes>
           </div>
         </div>
-
-        {/* Footer - No extra margin, fits perfectly */}
-        {/* {isAuthenticated && <Footer />} */}
       </div>
     </BrowserRouter>
   );

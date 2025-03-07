@@ -3,19 +3,17 @@ import TypingAnimation from "./TypingAnimation";
 import SlidingFeatures from "./SlidingFeatures";
 import Footer from "../../components/Footer";
 import AboutMe from "./AboutMe";
-import "./RainEffect.css"; // Import rain effect CSS
+import "./RainEffect.css";
 
 const LandingPage = () => {
   return (
     <div className="relative min-h-screen bg-gray-900 text-gray-200 overflow-hidden">
-      {/* Background Rain Effect */}
       <div className="rain-overlay">
         <video autoPlay loop muted>
           <source src="/assets/bg_rain.mp4" type="video/mp4" />
         </video>
       </div>
 
-      {/* Hero Section */}
       <div className="h-screen flex flex-col justify-center items-center text-center px-6 relative z-10">
         <motion.h1
           initial={{ opacity: 0, y: -50 }}
@@ -48,13 +46,9 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {/* Sliding Feature Cards (Updated) */}
       <SlidingFeatures />
 
-      {/* About Me Section */}
       <AboutMe />
-
-      {/* Footer */}
       <Footer />
     </div>
   );

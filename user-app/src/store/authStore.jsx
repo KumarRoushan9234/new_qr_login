@@ -17,7 +17,7 @@ const useAuthStore = create(
           localStorage.setItem("auth-token", data.token);
           set({ user: data.user, token: data.token, isAuthenticated: true });
 
-          await get().fetchUserProfile(); // Auto-fetch user profile
+          await get().fetchUserProfile();
         } catch (error) {
           console.error("Login failed", error);
         }

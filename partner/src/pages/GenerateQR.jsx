@@ -54,7 +54,6 @@ const GenerateQR = () => {
 
       {error && <p className="text-red-500">{error}</p>}
 
-      {/* Show Previous QR Code at the top */}
       {previousQrCode ? (
         <div className="mb-6">
           <h3 className="text-lg font-medium">Previous QR Code</h3>
@@ -78,7 +77,6 @@ const GenerateQR = () => {
         </p>
       )}
 
-      {/* Button to Generate a New QR Code */}
       <button
         onClick={handleGenerateQR}
         disabled={loading}
@@ -86,8 +84,7 @@ const GenerateQR = () => {
       >
         {loading ? "Generating..." : "Generate New QR Code"}
       </button>
-
-      {/* Show New QR Code if Generated */}
+      
       {newQrCode && (
         <div className="mt-6">
           <h3 className="text-lg font-medium">New QR Code</h3>

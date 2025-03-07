@@ -71,7 +71,6 @@ const Profile = () => {
           </p>
         )}
 
-        {/* Profile Details */}
         <div className="space-y-4">
           <div>
             <label className="block text-gray-300 font-semibold">Name</label>
@@ -112,7 +111,6 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="mt-6 flex justify-between">
           {editMode ? (
             <button
@@ -139,7 +137,6 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Password Change Modal */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-sm border border-gray-700">
@@ -166,7 +163,6 @@ const Profile = () => {
               className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded mb-4"
             />
 
-            {/* Confirmation Checkbox */}
             <div className="flex items-center gap-2 text-gray-300 mb-4">
               <input
                 type="checkbox"

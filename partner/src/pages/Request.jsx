@@ -9,8 +9,8 @@ const Request = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedRequest, setSelectedRequest] = useState(null); // Selected request for the modal
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -69,14 +69,9 @@ const Request = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
-      // Handle response here, e.g., show success message
       console.log(response.data.message);
-
-      // Close the modal after update
       closeModal();
 
-      // Optionally, refetch the requests
       // fetchRequests();
     } catch (error) {
       console.error("Error updating status:", error);
@@ -100,7 +95,7 @@ const Request = () => {
             <li
               key={req._id}
               className="p-4 border rounded-md shadow-sm bg-white cursor-pointer"
-              onClick={() => openModal(req)} // Open modal on click
+              onClick={() => openModal(req)}
             >
               <p className="text-lg font-semibold">{req.userName}</p>
               <p className="text-sm text-gray-600">{req.email}</p>

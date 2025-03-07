@@ -1,14 +1,14 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import API from "../api/api";
-import useAuthStore from "./authStore"; // Importing authStore to get user info
+import useAuthStore from "./authStore";
 
 const useUserStore = create(
   persist(
     (set, get) => ({
       user: null,
       partners: [],
-      checkInStatus: null, // To store the latest check-in status
+      checkInStatus: null,
 
       fetchUserProfile: async () => {
         try {
@@ -34,14 +34,14 @@ const useUserStore = create(
 
       submitCheckIn: async (partnerId) => {
         try {
-          const { user } = useAuthStore.getState(); // Get user from authStore
+          const { user } = useAuthStore.getState();
           if (!user) {
             console.error("User not authenticated");
             return { success: false, message: "User not authenticated" };
           }
 
           const response = await API.post("/checkin/submit", {
-            userId: user._id, // Get userId from authStore
+            userId: user._id,
             partnerId,
           });
 

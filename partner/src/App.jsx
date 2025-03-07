@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import usePartnerAuthStore from "./store/PartnerStore";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import Footer from "./components/Footer";
 import Login from "./pages/Auth/Login";
 import ScanQR from "./pages/ScanQR";
 import LandingPage from "./pages/Landing/LandingPage";
@@ -23,22 +24,18 @@ const App = () => {
     <BrowserRouter>
       {isAuthenticated && <Navbar />}
 
-      {/* Main Layout */}
       <div className="flex">
         {isAuthenticated && <Sidebar />}
 
-        {/* Main Content */}
         <div className="flex-1 p-6 relative">
           <Routes>
             <Route path="/login" element={<Login />} />
 
-            {/* Landing Page when not logged in */}
             <Route
               path="/"
               element={isAuthenticated ? <MyCompany /> : <LandingPage />}
             />
 
-            {/* Protected Routes */}
             <Route
               path="/scan"
               element={
@@ -65,8 +62,8 @@ const App = () => {
             />
           </Routes>
 
-          {/* ✅ Floating Help: Visible ONLY when authenticated */}
           {isAuthenticated && <FloatingHelp />}
+          {/* {isAuthenticated && <Footer />} */}
         </div>
       </div>
     </BrowserRouter>

@@ -5,7 +5,6 @@ const FloatingHelp = () => {
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef(null);
 
-  // Close modal when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -24,7 +23,6 @@ const FloatingHelp = () => {
 
   return (
     <>
-      {/* Smaller Floating Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-4 right-4 bg-[#111] text-white w-10 h-10 rounded-full shadow-lg hover:brightness-125 transition flex items-center justify-center text-lg font-bold"
@@ -35,7 +33,6 @@ const FloatingHelp = () => {
         ?
       </motion.button>
 
-      {/* Smaller Floating Modal */}
       <AnimatePresence>
         {isOpen && (
           <motion.div

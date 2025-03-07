@@ -9,7 +9,6 @@ const usePartnerStore = create(
       token: localStorage.getItem("partner-token") || null,
       isAuthenticated: !!localStorage.getItem("partner-token"),
 
-      // 🔹 Login Partner
       login: async (email, password) => {
         try {
           const { data } = await API.post("/partners/login", {
@@ -27,7 +26,6 @@ const usePartnerStore = create(
         }
       },
 
-      // 🔹 Fetch Partner Profile
       fetchPartnerProfile: async () => {
         try {
           const { data } = await API.get("/partners/profile");
@@ -37,7 +35,6 @@ const usePartnerStore = create(
         }
       },
 
-      // 🔹 Update Partner Profile
       updatePartnerProfile: async (profileData) => {
         try {
           const token = localStorage.getItem("partner-token");
@@ -55,7 +52,6 @@ const usePartnerStore = create(
         }
       },
 
-      // 🔹 Logout Partner
       logout: () => {
         localStorage.removeItem("partner-token");
         set({ partner: null, token: null, isAuthenticated: false });

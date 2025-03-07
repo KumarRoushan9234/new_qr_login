@@ -7,12 +7,11 @@ const RequestModal = ({ request, onClose, setRequests }) => {
     try {
       await axios.patch(`/api/requests/${request.id}`, { status });
 
-      // Update UI after approval/rejection
       setRequests((prevRequests) =>
         prevRequests.filter((req) => req.id !== request.id)
       );
 
-      onClose(); // Close modal
+      onClose();
     } catch (error) {
       console.error(`Error updating request:`, error);
     }

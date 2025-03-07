@@ -19,7 +19,6 @@ const Sidebar = () => {
         isOpen ? "w-64" : "w-20"
       } bg-gray-900 p-4 transition-all duration-300 shadow-lg flex flex-col justify-between relative`}
     >
-      {/* Sidebar Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="absolute -right-3 top-4 bg-gray-700 text-white p-2 rounded-full shadow-md"
@@ -27,7 +26,6 @@ const Sidebar = () => {
         {isOpen ? <BsLayoutSidebarInset /> : <BsLayoutSidebarInsetReverse />}
       </button>
 
-      {/* Navigation Links */}
       <nav className="space-y-2">
         <SectionTitle isOpen={isOpen} title="Dashboard" />
 

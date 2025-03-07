@@ -27,7 +27,6 @@ const CheckIn = () => {
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center h-screen p-4">
-      {/* Left Side: QR Code Info */}
       <div className="w-full md:w-1/2 p-6 bg-gray-800 text-white rounded-lg shadow-lg">
         <h2 className="text-xl font-semibold mb-4">QR Code Info:</h2>
         <p className="p-2 bg-gray-700 rounded border border-gray-600">
@@ -44,7 +43,6 @@ const CheckIn = () => {
         </p>
       </div>
 
-      {/* Right Side: Check-in Form */}
       <div className="w-full md:w-1/2 p-6">
         {!isCheckedIn ? (
           <>
@@ -79,7 +77,6 @@ const CheckIn = () => {
             </form>
           </>
         ) : (
-          // Confirmation Message
           <div className="p-6 bg-green-100 border border-green-500 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold text-green-700">
               ✅ Check-in Request Confirmed

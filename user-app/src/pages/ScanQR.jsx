@@ -44,11 +44,10 @@ const ScanQR = () => {
 
         if (code) {
           try {
-            const parsedData = JSON.parse(code.data); // Convert scanned string to JSON
+            const parsedData = JSON.parse(code.data);
             setQrData(parsedData);
             setScanning(false);
 
-            // Redirect to /check-in with scanned data
             navigate("/check-in", { state: parsedData });
           } catch (error) {
             console.error("Invalid QR code format", error);

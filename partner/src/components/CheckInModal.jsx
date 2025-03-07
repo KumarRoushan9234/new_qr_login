@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 const CheckInModal = ({ isOpen, onClose, request, onUpdateStatus }) => {
-  const [status, setStatus] = useState(""); // Store status (Approved or Rejected)
+  const [status, setStatus] = useState("");
 
   const handleUpdateStatus = () => {
     if (status) {
-      onUpdateStatus(request._id, status); // Pass the request ID and the selected status
+      onUpdateStatus(request._id, status);
     }
   };
 

@@ -6,7 +6,6 @@ const FloatingHelp = () => {
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef(null);
 
-  // Close modal when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -25,7 +24,6 @@ const FloatingHelp = () => {
 
   return (
     <>
-      {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
         className="fixed bottom-6 left-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition"
@@ -36,7 +34,6 @@ const FloatingHelp = () => {
         <SlQuestion size={24} />
       </motion.button>
 
-      {/* Modal */}
       <AnimatePresence>
         {isOpen && (
           <motion.div

@@ -5,7 +5,6 @@ const API = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-// Attach token automatically before every request
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("auth-token");
   if (token) {
@@ -14,5 +13,5 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-// Export API for general use
+
 export default API;

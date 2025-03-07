@@ -38,7 +38,7 @@ const UpdateProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await updateProfile(formData);
-    navigate("/my-company"); // Redirect to My Company Page
+    navigate("/my-company");
   };
 
   return (

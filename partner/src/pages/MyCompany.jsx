@@ -33,7 +33,6 @@ const Mypartner = () => {
       </h2>
 
       <div className="flex flex-col md:flex-row gap-8 items-center">
-        {/* Left Side - QR Code */}
         <motion.div
           className="text-center p-4 bg-gray-100 rounded-lg shadow-md"
           whileHover={{ scale: 1.05 }}
@@ -48,7 +47,6 @@ const Mypartner = () => {
           )}
         </motion.div>
 
-        {/* Right Side - Partner Details */}
         <div className="flex flex-col gap-3 text-gray-700">
           <p className="flex items-center gap-2">
             <FaEnvelope className="text-blue-500" /> {partner?.email || "N/A"}
@@ -71,7 +69,6 @@ const Mypartner = () => {
         </div>
       </div>
 
-      {/* Additional Details */}
       <div className="mt-6 border-t pt-4">
         <h3 className="text-xl font-semibold mb-2 text-gray-800">
           Additional Details
