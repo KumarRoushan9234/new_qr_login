@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import API from "../api/api";
 import CheckInModal from "../components/CheckInModal";
+import usePartnerStore from "../store/PartnerStore";
 
 const Request = () => {
+  const { partner } = usePartnerStore();
+  // console.log(partner._id);
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -58,7 +61,7 @@ const Request = () => {
       const response = await API.put(
         "/checkin/update-status",
         {
-          partnerId: "your-partner-id", // Replace with actual partnerId
+          partnerId: "{partner._id}",
           userId: requestId,
           status,
         },
