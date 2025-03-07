@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useCallback } from "react";
 import useAuthStore from "../store/authStore";
 
 const Profile = () => {
@@ -12,37 +11,48 @@ const Profile = () => {
     oldPassword: "",
     newPassword: "",
   });
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({ type: "", text: "" });
   const [showModal, setShowModal] = useState(false);
   const [confirmUpdate, setConfirmUpdate] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchUserProfile();
-  }, []);
+    if (!user) fetchUserProfile();
+  }, [user, fetchUserProfile]);
 
   useEffect(() => {
-    if (user) {
-      setFormData({ name: user.name || "", phone: user.phone || "" });
-    }
+    if (user) setFormData({ name: user.name || "", phone: user.phone || "" });
   }, [user]);
 
-  const handleUpdateProfile = async () => {
+  const handleUpdateProfile = useCallback(async () => {
+    setLoading(true);
     const result = await updateUserProfile(formData);
-    setMessage(result.message);
+    setMessage({
+      type: result.success ? "success" : "error",
+      text: result.message,
+    });
     setEditMode(false);
-  };
+    setLoading(false);
+  }, [formData, updateUserProfile]);
 
-  const handleChangePassword = async () => {
+  const handleChangePassword = useCallback(async () => {
     if (!confirmUpdate) return;
+
+    setLoading(true);
     const result = await changePassword(
       passwords.oldPassword,
       passwords.newPassword
     );
-    setMessage(result.message);
+    setMessage({
+      type: result.success ? "success" : "error",
+      text: result.message,
+    });
+
     setPasswords({ oldPassword: "", newPassword: "" });
     setShowModal(false);
     setConfirmUpdate(false);
-  };
+    setLoading(false);
+  }, [passwords, confirmUpdate, changePassword]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 p-6">
@@ -50,7 +60,16 @@ const Profile = () => {
         <h1 className="text-3xl font-bold text-center text-white mb-4">
           My Profile
         </h1>
-        {message && <p className="text-center text-green-400">{message}</p>}
+
+        {message.text && (
+          <p
+            className={`text-center mb-3 ${
+              message.type === "success" ? "text-green-400" : "text-red-400"
+            }`}
+          >
+            {message.text}
+          </p>
+        )}
 
         {/* Profile Details */}
         <div className="space-y-4">
@@ -98,9 +117,10 @@ const Profile = () => {
           {editMode ? (
             <button
               onClick={handleUpdateProfile}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition disabled:opacity-50"
+              disabled={loading}
             >
-              Save
+              {loading ? "Saving..." : "Save"}
             </button>
           ) : (
             <button
@@ -126,6 +146,7 @@ const Profile = () => {
             <h2 className="text-xl font-semibold text-white text-center mb-3">
               Change Password
             </h2>
+
             <input
               type="password"
               placeholder="Old Password"
@@ -170,9 +191,9 @@ const Profile = () => {
                     ? "bg-red-500 hover:bg-red-600 text-white"
                     : "bg-gray-600 text-gray-400 cursor-not-allowed"
                 }`}
-                disabled={!confirmUpdate}
+                disabled={!confirmUpdate || loading}
               >
-                Update Password
+                {loading ? "Updating..." : "Update Password"}
               </button>
             </div>
           </div>

@@ -69,7 +69,7 @@ const useAuthStore = create(
 
       updateUserProfile: async (formData) => {
         try {
-          const { data } = await API.put("/users/profile", formData);
+          const { data } = await API.put("/auth/update", formData);
           set({ user: data });
 
           return { success: true, message: "Profile updated successfully!" };
