@@ -10,6 +10,8 @@ import LandingPage from "./pages/Landing/LandingPage";
 import Companies from "./pages/Companies";
 import Profile from "./pages/Profile";
 import "./index.css";
+import CheckIn from "./pages/CheckIn";
+import Confirm from "./components/Confirm";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuthStore();
@@ -54,12 +56,28 @@ const App = () => {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/check-in"
+                element={
+                  <ProtectedRoute>
+                    <CheckIn />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/confirm"
+                element={
+                  <ProtectedRoute>
+                    <Confirm />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </div>
         </div>
 
         {/* Footer - No extra margin, fits perfectly */}
-        {isAuthenticated && <Footer />}
+        {/* {isAuthenticated && <Footer />} */}
       </div>
     </BrowserRouter>
   );

@@ -63,7 +63,7 @@ const Sidebar = () => {
           isOpen={isOpen}
           icon={<MdOutlineQrCodeScanner />}
           text="Scanner"
-          link="/scanner"
+          link="/scan"
         />
         <SidebarItem
           isOpen={isOpen}
