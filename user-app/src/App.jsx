@@ -2,12 +2,13 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import useAuthStore from "./store/authStore";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import Footer from "./components/Footer";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import ScanQR from "./pages/ScanQR";
 import LandingPage from "./pages/Landing/LandingPage";
 import Companies from "./pages/Companies";
-import FloatingHelp from "./components/FloatingHelp";
+import Profile from "./pages/Profile";
 import "./index.css";
 
 const ProtectedRoute = ({ children }) => {
@@ -21,36 +22,45 @@ const App = () => {
   return (
     <BrowserRouter>
       {isAuthenticated && <Navbar />}
-      {isAuthenticated && <Sidebar />}
 
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+      {/* Main Wrapper: Ensures full height & no gaps */}
+      <div className="flex flex-col min-h-screen bg-gray-900 text-white">
+        <div className="flex flex-1">
+          {isAuthenticated && <Sidebar />}
 
-        {/* Landing Page when not logged in */}
-        <Route
-          path="/"
-          element={isAuthenticated ? <Companies /> : <LandingPage />}
-        />
+          {/* Main Content Wrapper */}
+          <div className="flex-1  overflow-auto bg-black">
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
 
-        {/* Protected Routes */}
-        <Route
-          path="/scan"
-          element={
-            <ProtectedRoute>
-              <ScanQR />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          // path="/scan"
-          element={
-            <ProtectedRoute>
-              <FloatingHelp />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+              <Route
+                path="/"
+                element={isAuthenticated ? <Companies /> : <LandingPage />}
+              />
+              <Route
+                path="/scan"
+                element={
+                  <ProtectedRoute>
+                    <ScanQR />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </div>
+        </div>
+
+        {/* Footer - No extra margin, fits perfectly */}
+        {isAuthenticated && <Footer />}
+      </div>
     </BrowserRouter>
   );
 };

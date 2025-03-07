@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="text-center py-6 mt-12 bg-gray-100">
+    <footer className="bg-amber-100 text-black text-center p-2">
       <p>
         © 2025 QR Check-in | Built by{" "}
         <span className="font-semibold">Roushan</span>

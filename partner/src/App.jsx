@@ -7,6 +7,7 @@ import ScanQR from "./pages/ScanQR";
 import LandingPage from "./pages/Landing/LandingPage";
 import FloatingHelp from "./components/FloatingHelp";
 import Request from "./pages/Request";
+import GenerateQR from "./pages/GenerateQR";
 import "./index.css";
 
 const ProtectedRoute = ({ children }) => {
@@ -42,6 +43,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <ScanQR />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/generate-qr"
+              element={
+                <ProtectedRoute>
+                  <GenerateQR />
                 </ProtectedRoute>
               }
             />

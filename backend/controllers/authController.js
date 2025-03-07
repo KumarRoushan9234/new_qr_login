@@ -63,3 +63,57 @@ export const login = async (req, res) => {
     res.status(500).json({ message: "Error logging in", error });
   }
 };
+
+// Update User Profile (excluding password)
+export const updateUserProfile = async (req, res) => {
+  try {
+    const { name, email, phone } = req.body;
+
+    console.log("Updating user profile for:", req.user.id);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      { name, email, phone },
+      { new: true, runValidators: true }
+    ).select("-password"); // Exclude password from response
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    console.log("User profile updated successfully");
+    res.status(200).json({ message: "Profile updated successfully", updatedUser });
+
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ message: "Error updating profile", error });
+  }
+};
+
+// Change Password
+export const changePassword = async (req, res) => {
+  try {
+    const { oldPassword, newPassword } = req.body;
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Incorrect old password" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+    await user.save();
+
+    console.log("Password changed successfully");
+    res.status(200).json({ message: "Password changed successfully" });
+
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).json({ message: "Error changing password", error });
+  }
+};

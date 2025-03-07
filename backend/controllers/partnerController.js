@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Partner from "../models/Partner.js";
+import QRCode from "qrcode";
 
 // Partner Registration
 export const registerPartner = async (req, res) => {
@@ -89,17 +90,28 @@ export const getPartnerProfile = async (req, res) => {
 // Generate QR Code for Partner
 export const generateQRCode = async (req, res) => {
   try {
-    const { companyName, email, phone } = req.body;
+    const partnerId = req.user.id; // Get authenticated partner ID
 
-    const qrData = `Company: ${companyName}, Email: ${email}, Phone: ${phone}`;
+    const partner = await Partner.findById(partnerId);
+    if (!partner) {
+      return res.status(404).json({ message: "Partner not found" });
+    }
 
-    // QR Code Generation Logic (Example using 'qrcode' library)
-    const qrCode = await generateQRCodeImage(qrData);
+    const qrData = {
+      companyName: partner.companyName,
+      email: partner.email,
+      phone: partner.phone,
+      partnerId: partner._id,
+    };
 
-    await Partner.findByIdAndUpdate(req.user.id, { qrCode });
+    // Generate QR Code
+    const qrCode = await QRCode.toDataURL(JSON.stringify(qrData));
+
+    // Update the partner's record with the new QR code
+    partner.qrCode = qrCode;
+    await partner.save();
 
     res.json({ message: "QR Code generated successfully", qrCode });
-
   } catch (error) {
     console.error("Error generating QR code:", error);
     res.status(500).json({ message: "Error generating QR code" });
@@ -129,8 +141,4 @@ export const updateCheckInStatus = async (req, res) => {
   }
 };
 
-// Helper Function: Generate QR Code Image
-import QRCode from "qrcode";
-const generateQRCodeImage = async (data) => {
-  return await QRCode.toDataURL(data);
-};
+
