@@ -1,11 +1,11 @@
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import useUserStore from "../store/userStore";
 
 const CheckIn = () => {
   const location = useLocation();
   const qrData = location.state || {};
-
-  console.log("Qr-Code Data : ", qrData);
+  const submitCheckIn = useUserStore((state) => state.submitCheckIn);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -14,9 +14,15 @@ const CheckIn = () => {
 
   const [isCheckedIn, setIsCheckedIn] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsCheckedIn(true);
+
+    const response = await submitCheckIn(qrData.partnerId);
+    if (response.success) {
+      setIsCheckedIn(true);
+    } else {
+      alert(response.message);
+    }
   };
 
   return (

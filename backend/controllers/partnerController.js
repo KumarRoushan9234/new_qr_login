@@ -155,27 +155,49 @@ export const generateQRCode = async (req, res) => {
   }
 };
 
-// Approve/Reject Check-In Request
+export const getCheckInRequests = async (req, res) => {
+  try {
+    const partner = await Partner.findById(req.user.id);
+    if (!partner) {
+      return res.status(404).json({ message: "Partner not found" });
+    }
+
+    res.json({ checkInRequests: partner.pendingCheckIns });
+  } catch (error) {
+    console.error("Error fetching check-in requests:", error);
+    res.status(500).json({ message: "Error fetching check-in requests" });
+  }
+};
+
+// Approve/Reject a check-in request
 export const updateCheckInStatus = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { requestId } = req.params;
     const { status } = req.body; // "Approved" or "Rejected"
 
+    if (!["Approved", "Rejected"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status value" });
+    }
+
     const partner = await Partner.findById(req.user.id);
-    if (!partner) return res.status(404).json({ message: "Partner not found" });
+    if (!partner) {
+      return res.status(404).json({ message: "Partner not found" });
+    }
 
-    const checkIn = partner.pendingCheckIns.find(checkIn => checkIn._id.toString() === id);
-    if (!checkIn) return res.status(404).json({ message: "Check-in request not found" });
+    const checkInIndex = partner.pendingCheckIns.findIndex(
+      (checkIn) => checkIn._id.toString() === requestId
+    );
 
-    checkIn.status = status;
+    if (checkInIndex === -1) {
+      return res.status(404).json({ message: "Check-in request not found" });
+    }
+
+    partner.pendingCheckIns[checkInIndex].status = status;
     await partner.save();
 
-    res.json({ message: `Check-in ${status}`, checkIn });
-
+    res.json({ message: `Check-in ${status}`, updatedCheckIn: partner.pendingCheckIns[checkInIndex] });
   } catch (error) {
     console.error("Error updating check-in status:", error);
     res.status(500).json({ message: "Error updating check-in status" });
   }
 };
-
-
